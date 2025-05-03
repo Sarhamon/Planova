@@ -19,7 +19,7 @@
   },
   "permissions": ["identity"],
   "oauth2": {
-    "client_id": "634209759510-ha12mh2terjpcvn761kf899mcs9ut2um.apps.googleusercontent.com",
+    "client_id": "Not-now-work",
     "scopes": [
       "https://www.googleapis.com/auth/userinfo.profile",
       "https://www.googleapis.com/auth/userinfo.email",
