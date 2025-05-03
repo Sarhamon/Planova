@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Planova",
+  "version": "1.0.0",
+  "description": "Planova는 새 탭에서 작동하는 일정 관리 크롬 확장 프로그램입니다.",
+  "action": {
+    "default_title": "Planova"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "icons": {
+    "16": "assets/icon.png",
+    "48": "assets/icon.png",
+    "128": "assets/icon.png"
+  },
+  "permissions": ["identity"],
+  "oauth2": {
+    "client_id": "634209759510-ha12mh2terjpcvn761kf899mcs9ut2um.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/calendar"
+    ]
+  }
+}
