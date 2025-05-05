@@ -9,6 +9,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const yearSelector = document.getElementById("yearSelector");
   const monthSelector = document.getElementById("monthSelector");
 
+  const searchInput = document.getElementById("searchInput");
+
+  if (searchInput) {
+    searchInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        const keyword = this.value.trim().toLowerCase();
+        handleSearch(keyword);
+      }
+    });
+  }
+
   function pad(n) {
     return n.toString().padStart(2, "0");
   }
@@ -57,39 +68,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function renderCalendar(year, month) {
+  function renderCalendar(year, month, keyword = "") {
     currentYear = year;
     currentMonth = month;
     grid.innerHTML = "";
-
+  
     const now = new Date();
     const todayStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
-
+  
     const firstDay = new Date(year, month, 1).getDay();
     const lastDate = new Date(year, month + 1, 0).getDate();
     const prevLastDate = new Date(year, month, 0).getDate();
-
+  
     const todos = JSON.parse(localStorage.getItem("todos") || "[]");
-
+  
     title.innerHTML = `
       <span id="calendarYear" class="calendar-clickable">${year}년</span>
       <span id="calendarMonth" class="calendar-clickable">${month + 1}월</span>
     `;
     bindCalendarTitleEvents();
-
+  
     const totalCells = 42;
     let dayCount = 1;
-
+  
     for (let i = 0; i < totalCells; i++) {
       const cell = document.createElement("div");
       cell.classList.add("calendar-cell");
-
+  
       const weekDay = i % 7;
       if (weekDay === 0) cell.classList.add("sunday");
       if (weekDay === 6) cell.classList.add("saturday");
-
+  
       let dayNum, cellDate, isAdjacent = false;
-
+  
       if (i < firstDay) {
         dayNum = prevLastDate - firstDay + i + 1;
         const prevMonth = new Date(year, month - 1, dayNum);
@@ -109,22 +120,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         dayCount++;
       }
-
+  
       const day = document.createElement("div");
       day.className = "day-number";
       day.textContent = dayNum;
       if (isAdjacent) day.classList.add("adjacent-month");
       cell.appendChild(day);
-
+  
       const list = document.createElement("ul");
       list.className = "todo-list";
-
-      getTodosFor(cellDate, todos).forEach(todo => {
+  
+      const dayTodos = getTodosFor(cellDate, todos);
+      dayTodos.forEach(todo => {
         const li = document.createElement("li");
         li.textContent = todo.text;
         list.appendChild(li);
-      });
 
+        if (keyword && todo.text.toLowerCase().includes(keyword)) {
+          cell.classList.add("highlight");
+        }
+      });
+  
       cell.appendChild(list);
       grid.appendChild(cell);
     }
@@ -173,6 +189,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       renderCalendar(currentYear, currentMonth);
     });
+
+    function handleSearch(keyword) {
+      const todos = JSON.parse(localStorage.getItem("todos") || "[]");
+      console.log("검색어:", keyword);
+      console.log("전체 할 일:", todos);
+    
+      if (!keyword) {
+        renderCalendar(currentYear, currentMonth);
+        return;
+      }
+    
+      const matchedTodo = todos.find(todo => todo.text.toLowerCase().includes(keyword));
+      if (matchedTodo) {
+        const targetDate = new Date(matchedTodo.date);
+        renderCalendar(targetDate.getFullYear(), targetDate.getMonth(), keyword);
+      } else {
+        alert("일치하는 할 일이 없습니다.");
+      }
+    }
+    
   }
 
   // 선택기 외부 클릭 시 닫기
@@ -196,3 +232,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
