@@ -76,7 +76,7 @@
 
 Created as part of a software project at
 **Yeonsung University - Department of Computer Software**
-Main Dev : **Sarhamon ( Sangyoon Lee )**
+Main Dev : **Sangyoon Lee**
 
 ---
 
