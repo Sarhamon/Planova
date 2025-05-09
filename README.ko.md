@@ -79,5 +79,5 @@
 
 ## 📄 라이선스
 
-이 프로젝트는 MIT License 하에 배포됩니다.  
+이 프로젝트는 GPL License 하에 배포됩니다.  
 자세한 내용은 [LICENSE.md](./LICENSE.md) 파일을 참조하세요.
