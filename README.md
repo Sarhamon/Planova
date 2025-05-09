@@ -82,5 +82,7 @@ Main Dev : **Sarhamon ( Sangyoon Lee )**
 
 ##
 
-This project is licensed under the MIT License.  
-See [LICENSE.md](./LICENSE.md) for more details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE.md) file for details.
+
+▶ You are free to use, modify, and distribute this project under the terms of the GPL v3.
+▶ Any derivative work must also be licensed under the GPL and include its source code.
