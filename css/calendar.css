@@ -235,6 +235,31 @@
   background-color: rgba(0, 0, 255, 0.12);
 }
 
+/* 검색 관련 기능 */
+#searchInput {
+  background-color: #2e2e2e;     /* 어두운 배경 */
+  color: #ffffff;               /* 흰 글씨 */
+  border: 1px solid #555;       /* 중간톤 테두리 */
+  border-radius: 8px;           /* 둥근 테두리 */
+  padding: 6px 12px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+#searchInput::placeholder {
+  color: #aaaaaa;               /* 흐린 플레이스홀더 */
+}
+
+#searchInput:focus {
+  border-color: #f0b400;        /* 포커스 시 강조 색 */
+  box-shadow: 0 0 5px #f0b40055;
+}
+
+.highlight {
+  border: 2px solid #f0b400;
+}
+
 /* ===================== */
 /* 📝 할 일 목록 */
 /* ===================== */
