@@ -79,6 +79,10 @@ Use .env (Node.js) or application.properties (Spring) and add them to .gitignore
 
 This project is licensed under the terms of the [GNU GPL v3.](./LICENSE.md)
 
+You may copy, distribute and modify the software as long as you track changes/dates in source files.
+Any derivative works must be distributed under the same license.
+Commercial use is allowed, but with the same conditions.
+
 ## ✍️ Author
 - Lead Developer: Sarhamon(Sangyoon Lee)
 
