@@ -1,0 +1,45 @@
+# ─────────────────────────────
+# Global Settings
+# ─────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+
+# VSCode / IntelliJ settings
+.vscode/
+.idea/
+
+# ─────────────────────────────
+# Node.js Backend
+# ─────────────────────────────
+/backend/node_modules/
+backend/.env
+backend/firebase-key.json
+backend/.env.local
+backend/dist/
+backend/build/
+
+# ─────────────────────────────
+# Android Mobile App
+# ─────────────────────────────
+/mobile/.gradle/
+/mobile/.idea/
+/mobile/build/
+/mobile/app/build/
+**/*.iml
+/mobile/local.properties
+
+# ─────────────────────────────
+# Chrome Extension
+# ─────────────────────────────
+/extension/dist/
+/extension/build/
+extension/*.zip
+extension/*.pem
+
+# ─────────────────────────────
+# Shared Logic
+# ─────────────────────────────
+/shared/node_modules/
+/shared/dist/
+/shared/build/
