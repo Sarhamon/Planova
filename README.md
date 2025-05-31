@@ -11,9 +11,9 @@ Planova helps you stay organized and synced, whether you're on mobile or desktop
 ```plaintext
 Planova/
 ├── mobile/           ← Android app (Java)
-├── extension/        ← Chrome extension (Manifest V3)
-├── backend/          ← API server (Firebase, Node.js, or Spring)
-├── shared/           ← Shared logic (e.g., data models, authentication)
+├── extension/        ← Chrome extension (Manifest v3)
+├── backend/          ← API server
+├── shared/           ← Shared logic
 ├── LICENSE.md
 ├── README.md         ← English documentation
 ├── README.ko.md      ← Korean documentation
@@ -46,12 +46,10 @@ Backend
 ```
 cd backend
 
-# If using Node.js
+# using Node.js
 npm install
 npm start
 
-# If using Spring Boot
-./gradlew bootRun
 ```
 
 ## 📦 Dependencies

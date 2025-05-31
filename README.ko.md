@@ -11,9 +11,9 @@
 ```plaintext
 Planova/
 ├── mobile/           ← 안드로이드 앱 (Java)
-├── extension/        ← 크롬 확장 프로그램 (Manifest V3)
-├── backend/          ← API 서버 (Firebase, Node.js, 또는 Spring)
-├── shared/           ← 공통 로직 (데이터 모델, 인증 처리 등)
+├── extension/        ← 크롬 확장 프로그램 (Manifest v3)
+├── backend/          ← API 서버
+├── shared/           ← 공통 로직
 ├── LICENSE.md
 ├── README.md         ← 영어 문서
 ├── README.ko.md      ← 한글 문서
@@ -47,12 +47,10 @@ cd extension
 백엔드 서버
 ```cd backend
 
-# Node.js 사용하는 경우
+# Node.js 사용
 npm install
 npm start
 
-# Spring Boot 사용하는 경우
-./gradlew bootRun
 ```
 ---
 ## 📦 기술 스택
