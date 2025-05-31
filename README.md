@@ -36,10 +36,14 @@ Android App
 ```
 cd mobile
 # Open with Android Studio and run on emulator or device
-
+```
+Chrome Extension
+```
 cd extension
 # Visit chrome://extensions > Load unpacked
-
+```
+Backend
+```
 cd backend
 
 # If using Node.js
@@ -50,8 +54,14 @@ npm start
 ./gradlew bootRun
 ```
 
+## 📦 Dependencies
+Mobile: Room DB, Firebase Auth, Android SDK
+
+Extension: Chrome Storage API, OAuth2
+
+Backend: Express.js / Spring Boot, Firebase Admin SDK, JWT
+
 ## 📦 Tech Stack
-```
 Mobile: Java, Room DB, Firebase Auth
 
 Extension: JavaScript, Chrome APIs, OAuth2
@@ -59,12 +69,17 @@ Extension: JavaScript, Chrome APIs, OAuth2
 Backend: Node.js (Express) or Spring Boot, Firebase Admin SDK
 
 Shared: TypeScript or Java modules for models, auth logic
-```
+
 ## 🔐 Security Notice
-```
+
 Do not expose secrets or credentials.
 Use .env (Node.js) or application.properties (Spring) and add them to .gitignore.
-```
+
 ## 📄 License
 
-This project is licensed under the terms of the GNU GPL v3.
+This project is licensed under the terms of the [GNU GPL v3.](./LICENSE.md)
+
+## ✍️ Author
+- Lead Developer: Sarhamon(Sangyoon Lee)
+
+- Contributions welcome via Pull Requests!
