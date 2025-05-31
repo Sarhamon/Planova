@@ -1,3 +1,6 @@
+Copyright (C) 2025 Sangyoon Lee
+This file is part of the Planova project.
+---
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
