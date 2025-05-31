@@ -49,7 +49,6 @@ cd backend
 # using Node.js
 npm install
 npm start
-
 ```
 
 ## 📦 Dependencies

@@ -50,7 +50,6 @@ cd extension
 # Node.js 사용
 npm install
 npm start
-
 ```
 ---
 ## 📦 기술 스택
