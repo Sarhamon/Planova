@@ -4,7 +4,7 @@
 It works seamlessly across Android mobile devices and Chrome browsers, all powered by a shared cloud backend.  
 Planova helps you stay organized and synced, whether you're on mobile or desktop.
 
-### 📘 [한국어 문서 보기](./README.ko.md)
+📘 [한국어 문서 보기](./README.ko.md)
 
 ## 📁 Project Structure
 
