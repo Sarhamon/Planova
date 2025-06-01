@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Firebase Google 로그인 테스트</title>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <h1>Google 로그인 테스트</h1>
+  <button onclick="signInWithGoogle()">Google 로그인</button>
+
+  <script>
+    // Firebase 설정
+    const firebaseConfig = {
+      apiKey: "AIzaSyCAZWHgljMlcJHRdXDmoJilqVNiWMSI6OU",
+      authDomain: "planova-d07ae.firebaseapp.com",
+      projectId: "planova-d07ae",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    async function signInWithGoogle() {
+      try {
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        const idToken = await user.getIdToken();
+        console.log('✅ ID Token:', idToken);
+
+        // 백엔드로 토큰 전송
+        const response = await fetch('http://localhost:4000/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ idToken })
+        });
+
+        const data = await response.json();
+        console.log('🎉 백엔드 응답:', data);
+        alert(`로그인 성공: ${data.email || data.message}`);
+
+      } catch (error) {
+        console.error('❌ 로그인 실패:', error.code, error.message);
+        alert(`로그인 실패: ${error.code}`);
+      }
+    }
+  </script>
+</body>
+</html>

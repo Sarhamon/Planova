@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Planova Extension",
+  "version": "1.0.0",
+  "description": "Planova 일정 관리 확장프로그램",
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "identity",
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}

@@ -1,0 +1,21 @@
+# 백엔드 관련
+Backend/node_modules/
+Backend/.env
+Backend/npm-debug.log*
+Backend/dist/
+Backend/build/
+Backend/.cache/
+Backend/src/config/Planova-firebase.json
+
+# 에디터/OS 공통
+.DS_Store
+.vscode/
+Thumbs.db
+
+# 로그 및 임시파일
+*.log
+*.swp
+*.swo
+
+# 크롬 확장프로그램 관련
+Extension/.env
