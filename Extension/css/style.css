@@ -4,13 +4,19 @@ body {
   height: 100vh;
   font-family: Arial, sans-serif;
   color: white;
-
-  /* 배경 이미지 고정 적용 */
-  background-image: url("../assets/modern.png");
+  /* 라이트모드 (Default - Light_Mod) */
+  background: url("../assets/light.png") no-repeat center center fixed;
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #121212; /* 혹시 이미지 로딩 실패 대비 */
+
+  transition: background-image 0.4s ease-in-out;
+}
+
+/* 다크 모드용 (Dark_Mod) */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: url("../assets/dark.png") no-repeat center center fixed;
+    background-size: cover;
+  }
 }
 
 .overlay {
