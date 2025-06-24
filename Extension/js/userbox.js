@@ -20,11 +20,36 @@ document.addEventListener("DOMContentLoaded", () => {
     cancelUsernameBtn: document.getElementById("cancelUsernameBtn"),
     usernameInput: document.getElementById("usernameInput"),
     greetingText: document.getElementById("greeting"),
+    googleLoginBtn: document.getElementById("googleLoginBtn"), // ✅ 추가
   };
 
   let isChangingUser = false;
+  function loginWithGoogle() {
+    chrome.identity.getAuthToken({ interactive: true }, (token) => {
+      if (chrome.runtime.lastError) {
+        console.error("Google 로그인 실패:", chrome.runtime.lastError.message);
+        alert("Google 로그인 실패");
+        return;
+      }
 
-  // 최초 접속일 설정
+      fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((user) => {
+          console.log("✅ 로그인 성공", user);
+          localStorage.setItem(STORAGE_KEYS.username, user.name);
+          localStorage.setItem(STORAGE_KEYS.profileImage, user.picture);
+          updateUsernameDisplay();
+          loadProfileImage();
+          updateGreeting();
+          elements.userIcon.style.display = "flex";
+          elements.usernamePopup.style.display = "none";
+        });
+    });
+  }
   function setInitialAccessDate() {
     let firstAccess = localStorage.getItem(STORAGE_KEYS.firstAccess);
     if (!firstAccess) {
@@ -34,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
     elements.userFirstAccessDisplay.textContent = firstAccess;
   }
 
-  // 사용자 이름을 업데이트하는 함수
   function updateUsernameDisplay() {
     const username = localStorage.getItem(STORAGE_KEYS.username);
     if (username) {
@@ -48,25 +72,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 프로필 이미지 로드
   function loadProfileImage() {
     const storedImage = localStorage.getItem(STORAGE_KEYS.profileImage);
     elements.profileImage.src = storedImage || "assets/user.png";
   }
 
-  // 사용자 이름 입력 팝업을 열고 변경/취소 버튼 설정
   function showUsernamePopup(isChange = false) {
     isChangingUser = isChange;
     elements.usernamePopup.style.display = "flex";
-    elements.usernameInput.value = isChange ? localStorage.getItem(STORAGE_KEYS.username) || "" : "";
+    elements.usernameInput.value = isChange
+      ? localStorage.getItem(STORAGE_KEYS.username) || ""
+      : "";
     elements.usernameInput.focus();
 
     elements.saveUsernameBtn.style.display = isChange ? "none" : "inline-block";
     elements.confirmUsernameBtn.style.display = isChange ? "inline-block" : "none";
     elements.cancelUsernameBtn.style.display = isChange ? "inline-block" : "none";
   }
-
-  // 이벤트 핸들러 바인딩
   function bindEvents() {
     elements.userIcon.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -123,19 +145,23 @@ document.addEventListener("DOMContentLoaded", () => {
     elements.cancelUsernameBtn?.addEventListener("click", () => {
       elements.usernamePopup.style.display = "none";
     });
-  }
 
-  // 초기화 함수
+    // ✅ Google 로그인 버튼 이벤트 연결
+    elements.googleLoginBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      loginWithGoogle();
+    });
+  }
   function init() {
     elements.userIcon.style.display = "none";
     elements.userPanel.classList.remove("show");
     setInitialAccessDate();
-    updateUsernameDisplay();
     loadProfileImage();
+    updateUsernameDisplay();
 
     const username = localStorage.getItem(STORAGE_KEYS.username);
     if (!username) {
-      showUsernamePopup(false);
+      showUsernamePopup(false); // 로그인 or 수동입력 유도
     } else {
       updateGreeting();
     }
