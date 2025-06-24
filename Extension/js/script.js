@@ -1,5 +1,7 @@
 function updateBackground() {
-  document.body.style.backgroundImage = `url('assets/modern.png')`;
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const bg = prefersDark ? "dark.png" : "light.png";
+  document.body.style.backgroundImage = `url('assets/${bg}')`;
 }
 
 function updateClock() {
