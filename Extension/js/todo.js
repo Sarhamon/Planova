@@ -5,23 +5,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("toggleTodos");
   const itemList = document.getElementById("todoItems");
 
+  function makeId() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  }
+
   let todos = JSON.parse(localStorage.getItem("todos") || "[]");
+
+  // 기존 데이터(id 없음) 마이그레이션
+  let migrated = false;
+  todos.forEach(t => {
+    if (!t.id) {
+      t.id = makeId();
+      migrated = true;
+    }
+  });
 
   function saveTodos() {
     localStorage.setItem("todos", JSON.stringify(todos));
   }
 
+  if (migrated) saveTodos();
+
   function renderTodos() {
     itemList.innerHTML = "";
     todos.sort((a, b) => new Date(a.date) - new Date(b.date));
-    todos.forEach((todo, index) => {
+    todos.forEach(todo => {
       const li = document.createElement("li");
       li.textContent = `${todo.date} - ${todo.text}`;
       const delBtn = document.createElement("button");
       delBtn.textContent = "❌";
       delBtn.style.marginLeft = "10px";
       delBtn.onclick = () => {
-        todos.splice(index, 1);
+        todos = todos.filter(t => t.id !== todo.id);
         saveTodos();
         renderTodos();
       };
@@ -34,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const date = dateInput.value;
     const text = textInput.value.trim();
     if (date && text) {
-      todos.push({ date, text });
+      todos.push({ id: makeId(), date, text });
       saveTodos();
       renderTodos();
       textInput.value = "";
