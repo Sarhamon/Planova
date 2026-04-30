@@ -19,6 +19,10 @@ Planova/
 └── README.ko.md          ← Korean documentation
 ```
 
+## 🖼️ Images
+
+The background images used in this project are generated using AI.
+
 ## 🔧 Features
 - Manage to-dos with date assignment
 - Monthly calendar with to-do markers and keyword search
