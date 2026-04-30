@@ -48,6 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(updateClock, 1000);        // 시계 매초 업데이트
   checkUsername();
 
+  const copyrightYearEl = document.getElementById("copyrightYear");
+  if (copyrightYearEl) {
+    copyrightYearEl.textContent = new Date().getFullYear();
+  }
+
   const saveBtn = document.getElementById("saveUsername");
   const changeUserBtn = document.getElementById("changeUserBtn");
 
