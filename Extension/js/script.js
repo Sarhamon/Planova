@@ -1,7 +1,16 @@
+function getBackgroundFile(hour) {
+  if (hour >= 6 && hour < 11) return "morning.png";
+  if (hour >= 11 && hour < 13) return "noon.png";
+  if (hour >= 13 && hour < 20) return "evening.png";
+  return "night.png"; // 20:00–05:59
+}
+
+let currentBackgroundFile = null;
 function updateBackground() {
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const bg = prefersDark ? "dark.png" : "light.png";
-  document.body.style.backgroundImage = `url('assets/${bg}')`;
+  const file = getBackgroundFile(new Date().getHours());
+  if (file === currentBackgroundFile) return;
+  currentBackgroundFile = file;
+  document.body.style.backgroundImage = `url('assets/${file}')`;
 }
 
 function updateClock() {
@@ -44,6 +53,7 @@ function checkUsername() {
 
 document.addEventListener("DOMContentLoaded", () => {
   updateBackground();
+  setInterval(updateBackground, 60_000); // 1분마다 시간대 경계 재체크
   updateClock();
   setInterval(updateClock, 1000);        // 시계 매초 업데이트
   checkUsername();
