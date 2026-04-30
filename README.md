@@ -1,8 +1,6 @@
 # Planova
 
-**Planova** is a cross-platform planning application designed for **managing personal schedules**.  
-It works seamlessly across Android mobile devices and Chrome browsers, all powered by a shared cloud backend.  
-Planova helps you stay organized and synced, whether you're on mobile or desktop.
+**Planova** is a Chrome extension that replaces your new tab page with a personal planning dashboard — clock, greeting, to-do list, and a monthly calendar — all stored locally in your browser.
 
 📘 [한국어 문서 보기](./README.ko.md)
 
@@ -10,67 +8,38 @@ Planova helps you stay organized and synced, whether you're on mobile or desktop
 
 ```plaintext
 Planova/
-├── mobile/           ← Android app (Java)
-├── extension/        ← Chrome extension (Manifest v3)
-├── backend/          ← API server
-├── shared/           ← Shared logic
+├── Extension/
+│   ├── manifest.json     ← Manifest v3
+│   ├── index.html        ← New tab page
+│   ├── assets/           ← Icons & background images
+│   ├── css/              ← Stylesheets per module
+│   └── js/               ← script / menu / todo / calendar / userbox / background
 ├── LICENSE.md
-├── README.md         ← English documentation
-├── README.ko.md      ← Korean documentation
+├── README.md             ← English documentation
+└── README.ko.md          ← Korean documentation
 ```
+
 ## 🔧 Features
-Manage to-dos, schedules, and calendar events
-
-Google account login (OAuth)
-
-Real-time sync across mobile and browser
-
-Offline support (local storage/cache)
-
-Modular design for easier maintenance and scalability
+- Manage to-dos with date assignment
+- Monthly calendar with to-do markers and keyword search
+- Customizable username and profile image
+- Light/dark background that follows the system theme
+- Quick links to Gmail / Drive / YouTube
+- All data persisted locally via `localStorage`
 
 ## 🚀 Getting Started
-Clone the repository and refer to the individual directories to run each module.
 
-Android App
-```
-cd mobile
-# Open with Android Studio and run on emulator or device
-```
-Chrome Extension
-```
-cd extension
-# Visit chrome://extensions > Load unpacked
-```
-Backend
-```
-cd backend
+No build step required — the `Extension/` folder is ready to load.
 
-# using Node.js
-npm install
-npm start
-```
-
-## 📦 Dependencies
-Mobile: Room DB, Firebase Auth, Android SDK
-
-Extension: Chrome Storage API, OAuth2
-
-Backend: Express.js / Spring Boot, Firebase Admin SDK, JWT
+1. Open `chrome://extensions` in Chrome
+2. Enable **Developer mode** (top right)
+3. Click **Load unpacked** and select the `Extension/` folder
+4. Open a new tab to see the Planova dashboard
 
 ## 📦 Tech Stack
-Mobile: Java, Room DB, Firebase Auth
-
-Extension: JavaScript, Chrome APIs, OAuth2
-
-Backend: Node.js (Express) or Spring Boot, Firebase Admin SDK
-
-Shared: TypeScript or Java modules for models, auth logic
-
-## 🔐 Security Notice
-
-Do not expose secrets or credentials.
-Use .env (Node.js) or application.properties (Spring) and add them to .gitignore.
+- JavaScript (vanilla)
+- Chrome Extensions API (Manifest v3)
+- HTML / CSS
 
 ## 📄 License
 
@@ -81,6 +50,6 @@ Any derivative works must be distributed under the same license.
 Commercial use is allowed, but with the same conditions.
 
 ## ✍️ Author
-- Lead Developer: Sarhamon(Sangyoon Lee)
+- Lead Developer: Sarhamon (Sangyoon Lee)
 
 - Contributions welcome via Pull Requests!
