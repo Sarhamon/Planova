@@ -163,6 +163,11 @@ document.addEventListener("DOMContentLoaded", () => {
         overlay.classList.add("hidden");
       }
     });
+
+    overlay.addEventListener("calendar:open", () => {
+      const now = new Date();
+      renderCalendar(now.getFullYear(), now.getMonth());
+    });
   }
 
   // 이전/다음 달 이동
@@ -194,12 +199,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const todos = JSON.parse(localStorage.getItem("todos") || "[]");
       console.log("검색어:", keyword);
       console.log("전체 할 일:", todos);
-    
+
       if (!keyword) {
         renderCalendar(currentYear, currentMonth);
         return;
       }
-    
+
       const matchedTodo = todos.find(todo => todo.text.toLowerCase().includes(keyword));
       if (matchedTodo) {
         const targetDate = new Date(matchedTodo.date);
@@ -208,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("일치하는 할 일이 없습니다.");
       }
     }
-    
+
   }
 
   // 선택기 외부 클릭 시 닫기

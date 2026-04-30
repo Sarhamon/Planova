@@ -27,13 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
       calendarMenuItem.addEventListener("click", (e) => {
         e.stopPropagation();
         calendarOverlay.classList.remove("hidden");
-  
-        // 💡 강제 리플로우로 애니메이션 활성화
+
         void calendarOverlay.offsetWidth;
-  
-        if (typeof renderCalendar === "function") {
-          renderCalendar();
-        }
+
+        calendarOverlay.dispatchEvent(new CustomEvent("calendar:open"));
       });
     }
   
