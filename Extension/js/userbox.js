@@ -20,36 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
     cancelUsernameBtn: document.getElementById("cancelUsernameBtn"),
     usernameInput: document.getElementById("usernameInput"),
     greetingText: document.getElementById("greeting"),
-    googleLoginBtn: document.getElementById("googleLoginBtn"), // ✅ 추가
   };
 
   let isChangingUser = false;
-  function loginWithGoogle() {
-    chrome.identity.getAuthToken({ interactive: true }, (token) => {
-      if (chrome.runtime.lastError) {
-        console.error("Google 로그인 실패:", chrome.runtime.lastError.message);
-        alert("Google 로그인 실패");
-        return;
-      }
 
-      fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((user) => {
-          console.log("✅ 로그인 성공", user);
-          localStorage.setItem(STORAGE_KEYS.username, user.name);
-          localStorage.setItem(STORAGE_KEYS.profileImage, user.picture);
-          updateUsernameDisplay();
-          loadProfileImage();
-          updateGreeting();
-          elements.userIcon.style.display = "flex";
-          elements.usernamePopup.style.display = "none";
-        });
-    });
-  }
   function setInitialAccessDate() {
     let firstAccess = localStorage.getItem(STORAGE_KEYS.firstAccess);
     if (!firstAccess) {
@@ -144,12 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     elements.cancelUsernameBtn?.addEventListener("click", () => {
       elements.usernamePopup.style.display = "none";
-    });
-
-    // ✅ Google 로그인 버튼 이벤트 연결
-    elements.googleLoginBtn?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      loginWithGoogle();
     });
   }
   function init() {

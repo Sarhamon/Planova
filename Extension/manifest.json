@@ -14,12 +14,7 @@
   "background": {
     "service_worker": "js/background.js"
   },
-  "oauth2": {
-    "client_id": "634209759510-ha12mh2terjpcvn761kf899mcs9ut2um.apps.googleusercontent.com",
-    "scopes": ["profile", "email"]
-  },
   "permissions": [
-    "identity",
     "storage",
     "activeTab",
     "scripting"
