@@ -1,0 +1,42 @@
+/* ──────────────────────────────────────────────────────────
+   데스크톱 아이콘 — 이미지 속 모니터 바탕화면의 MS Edge 아이콘 아래에 배치
+   stage 기준 % 좌표.
+   ────────────────────────────────────────────────────────── */
+
+:root {
+  --taskbar-icon-left: 25%;
+  --taskbar-icon-top: 22%;
+  --taskbar-icon-size: 2.6%;
+}
+
+.taskbar-icon {
+  position: absolute;
+  left: var(--taskbar-icon-left);
+  top: var(--taskbar-icon-top);
+  width: var(--taskbar-icon-size);
+  aspect-ratio: 1;
+
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.taskbar-icon:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+.taskbar-icon:active {
+  transform: translateY(0);
+}
+
+.taskbar-icon-glyph {
+  font-size: clamp(10px, 1.6vw, 22px);
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}

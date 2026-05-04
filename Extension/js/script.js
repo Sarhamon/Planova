@@ -10,13 +10,10 @@ function updateBackground() {
   const file = getBackgroundFile(new Date().getHours());
   if (file === currentBackgroundFile) return;
   currentBackgroundFile = file;
-  document.body.style.backgroundImage = `url('assets/${file}')`;
-}
-
-function updateClock() {
-  const now = new Date();
-  const clock = document.getElementById("clock");
-  clock.textContent = now.toLocaleTimeString("ko-KR", { hour12: true });
+  const stage = document.getElementById("stage");
+  if (stage) {
+    stage.style.backgroundImage = `url('assets/${file}')`;
+  }
 }
 
 function updateGreeting() {
@@ -38,24 +35,13 @@ function updateGreeting() {
 function checkUsername() {
   const username = localStorage.getItem("username");
   const popup = document.getElementById("usernamePopup");
-  const interfaceElements = document.querySelectorAll(".sidebar, .todo-box, .footer");
-
-  if (!username) {
-    popup.style.display = "flex";
-    interfaceElements.forEach(el => el.style.display = "none");
-    updateGreeting(); // greeting 초기화
-  } else {
-    popup.style.display = "none";
-    interfaceElements.forEach(el => el.style.display = "");
-    updateGreeting(); // greeting 갱신
-  }
+  popup.style.display = username ? "none" : "flex";
+  updateGreeting();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   updateBackground();
   setInterval(updateBackground, 60_000); // 1분마다 시간대 경계 재체크
-  updateClock();
-  setInterval(updateClock, 1000);        // 시계 매초 업데이트
   checkUsername();
 
   const copyrightYearEl = document.getElementById("copyrightYear");
@@ -67,16 +53,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const changeUserBtn = document.getElementById("changeUserBtn");
 
   // 사용자 이름 저장 버튼
-  saveBtn.addEventListener("click", () => {
+  saveBtn?.addEventListener("click", () => {
     const input = document.getElementById("usernameInput").value.trim();
     if (input !== "") {
       localStorage.setItem("username", input);
-      checkUsername(); // greeting 및 UI 업데이트
+      checkUsername();
     }
   });
 
-  // 사용자 변경 버튼 클릭 시
-  changeUserBtn.addEventListener("click", (e) => {
+  // 사용자 변경 버튼 (사용자 박스 비활성화 시에는 존재하지 않음)
+  changeUserBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     const usernamePopup = document.getElementById("usernamePopup");
     usernamePopup.style.display = "flex";

@@ -1,62 +1,82 @@
+/* ──────────────────────────────────────────────────────────
+   Stage layout: 16:9 무대(이미지) 안에 모니터 화면 영역이 위치
+   배경 이미지(시간대별)는 stage에 그려지고,
+   UI는 모두 screen-area(시티뷰 영역) 안에 absolute 배치된다.
+   ────────────────────────────────────────────────────────── */
+
+:root {
+  --screen-left: 23%;
+  --screen-top: 20%;
+  --screen-width: 54%;
+  --screen-height: 49%;
+
+  --accent: #f0b400;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 100%;
+}
+
+body {
   font-family: Arial, sans-serif;
   color: white;
-  background-color: #1a1a1a;
-  background-size: cover;
+  background-color: #0e0e10;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.stage {
+  position: relative;
+  width: min(100vw, calc(100vh * 16 / 9));
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center center;
   transition: background-image 0.4s ease-in-out;
 }
 
-.overlay {
+.screen-area {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 1;
+  left: var(--screen-left);
+  top: var(--screen-top);
+  width: var(--screen-width);
+  height: var(--screen-height);
+  overflow: hidden;
 }
 
-
-.clock {
-  font-size: 64px;
-  font-weight: bold;
-  margin: 0;
-  padding: 0;
-}
-
+/* Footer — 크롬 창(뷰포트) 우하단 고정 */
 .footer {
   position: fixed;
-  bottom: 10px;
-  right: 10px;
-  font-size: 12px;
-  color: white;
-  opacity: 0.7;
+  bottom: 8px;
+  right: 12px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  z-index: 100;
+  white-space: nowrap;
 }
 
-.greeting {
-  font-size: 1.5em;
-  color: white;
-  text-align: center;
-  margin-top: 1px;
-}
-.clock-wrapper {
-  text-align: center;
-}
-
-/* 키보드 네비게이션용 포커스 링 — 마우스 클릭 시에는 표시되지 않음 */
+/* 키보드 네비게이션용 포커스 링 */
 :focus-visible {
-  outline: 2px solid #f0b400;
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* 인풋 필드는 outline-offset이 어색하므로 inset shadow로 대체 */
 input:focus-visible,
 textarea:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px #f0b400;
+  box-shadow: 0 0 0 2px var(--accent);
 }

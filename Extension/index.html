@@ -3,149 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <title>New Tab by Planova</title>
-  <!-- css 로딩 -->
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/menu.css" />
-  <link rel="stylesheet" href="css/todo.css" />
+  <link rel="stylesheet" href="css/taskbar.css" />
   <link rel="stylesheet" href="css/calendar.css" />
   <link rel="stylesheet" href="css/userbox.css" />
 </head>
 <body>
 
-  <!-- 사용자 이름 입력 팝업 -->
-  <div class="username-popup" id="usernamePopup">
-    <div class="popup-content">
-      <h2>사용자 이름을 입력하세요</h2>
-      <input type="text" id="usernameInput" placeholder="이름 입력" />
-      <div class="username-buttons">
-        <button id="saveUsername">확인</button>
-        <button id="confirmUsernameBtn" style="display: none;">변경</button>
-        <button id="cancelUsernameBtn" style="display: none;">취소</button>
-      </div>
-    </div>
-  </div>
+  <div class="stage" id="stage">
 
-  <!-- 시계 / 사용자명 -->
-  <div class="overlay">
-    <div class="clock-wrapper">
-      <p class="clock" id="clock"></p>
-      <p class="greeting" id="greeting"></p>
-    </div>
-  </div>
-  
-  <!-- 사용자 박스 (오른쪽 상단) -->
-  <div id="userContainer">
-    <div id="userIcon">
-      <img src="assets/user.png" alt="User" id="profileImage">
-    </div>
-    <div id="userPanel" class="hidden"> <!-- userPanel에 hidden 클래스를 추가 -->
-      <p>사용자명: <span id="usernameDisplay"></span></p>
-      <p>최초 접속일: <span id="userFirstAccess"></span></p>
-      <button id="uploadProfileImageBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-camera">
-          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-          <circle cx="12" cy="13" r="4" />
-        </svg>
-        이미지 변경
-      </button>
-      <input type="file" id="profileImageInput" accept="image/*" style="display: none;" />
-      <button id="changeUserBtn" title="사용자 변경">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-refresh-ccw">
-          <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-          <path d="M3 3v5h5"/>
-          <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
-          <path d="M16 16h5v5"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-  
-  <!-- 메뉴바 -->
-  <div class="sidebar">
-    <ul class="menu-list">
-      <li>📅 캘린더</li>
-      <li class="google-menu">
-        📁 Google's
-        <div class="google-icons">
-          <a href="https://mail.google.com" target="_blank" title="Gmail">
-            <img src="https://www.google.com/favicon.ico" alt="Gmail" />
-          </a>
-          <a href="https://drive.google.com" target="_blank" title="Drive">
-            <img src="https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_48dp.png" alt="Drive" />
-          </a>
-          <a href="https://youtube.com" target="_blank" title="YouTube">
-            <img src="https://www.youtube.com/favicon.ico" alt="YouTube" />
-          </a>
+    <div class="screen-area">
+
+      <!-- 사용자 이름 입력 팝업 -->
+      <div class="username-popup" id="usernamePopup">
+        <div class="popup-content">
+          <h2>사용자 이름을 입력하세요</h2>
+          <input type="text" id="usernameInput" placeholder="이름 입력" />
+          <div class="username-buttons">
+            <button id="saveUsername">확인</button>
+            <button id="confirmUsernameBtn" style="display: none;">변경</button>
+            <button id="cancelUsernameBtn" style="display: none;">취소</button>
+          </div>
         </div>
-      </li>
-    </ul>
-  </div>
-
-  <!-- 일정 추가 박스 (좌측 하단) -->
-  <div class="todo-box">
-    <ul id="todoItems" style="display: none;"></ul> <!-- 위로 쌓이는 영역 -->
-    
-    <div class="todo-inputs"> <!-- 1줄 정렬 -->
-      <input type="date" id="todoDate" />
-      <input type="text" id="todoText" placeholder="할 일을 입력하세요" />
-      <div class="todo-controls">
-        <button id="addTodo">＋</button>
-        <button id="toggleTodos">◀</button>
       </div>
-    </div>
-  </div>
-  
-  <!-- 캘린더 오버레이 (처음엔 숨김 상태여야 함) -->
-  <div id="calendarOverlay" class="calendar-overlay hidden">
-    <div class="calendar-modal">
-      <div class="calendar-header">
-        <div class="calendar-left">
-          <button id="goToday" class="nav-button" title="오늘로 이동">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/>
+
+      <!-- 사용자 박스 임시 비활성화 — 추후 위치/디자인 결정 후 복원
+      <div id="userContainer">
+        <div id="userIcon">
+          <img src="assets/user.png" alt="User" id="profileImage">
+        </div>
+        <div id="userPanel" class="hidden">
+          <p>사용자명: <span id="usernameDisplay"></span></p>
+          <p>최초 접속일: <span id="userFirstAccess"></span></p>
+          <button id="uploadProfileImageBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-camera">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+              <circle cx="12" cy="13" r="4" />
+            </svg>
+            이미지 변경
+          </button>
+          <input type="file" id="profileImageInput" accept="image/*" style="display: none;" />
+          <button id="changeUserBtn" title="사용자 변경">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-refresh-ccw">
+              <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+              <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+              <path d="M16 16h5v5"/>
             </svg>
           </button>
-          <input type="text" id="searchInput" placeholder="할 일 검색" />
         </div>
-      
-        <div class="calendar-center">
-          <button id="prevMonth" class="nav-button">◀</button>
-          <h2 id="calendarTitle">
-            <span id="calendarYear" class="calendar-clickable"></span>
-            <span id="calendarMonth" class="calendar-clickable"></span>
-          </h2>
-          <button id="nextMonth" class="nav-button">▶</button>
-        </div>
-      
-        <button id="closeCalendar" class="calendar-close">✖</button>
       </div>
-  
-      <!-- 선택기 -->
-      <div id="yearSelector" class="selector hidden"></div>
-      <div id="monthSelector" class="selector hidden"></div>
-  
-      <div class="calendar-weekdays">
-        <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
-      </div>
-      <div id="calendarGrid" class="calendar-grid"></div>
-    </div>
-  </div>
+      -->
+      <noscript id="userContainerStub"></noscript>
 
-  <!-- Footer with credits -->
+      <!-- 캘린더 오버레이 (처음엔 숨김 상태여야 함) -->
+      <div id="calendarOverlay" class="calendar-overlay hidden">
+        <div class="calendar-modal">
+          <div class="calendar-header">
+            <div class="calendar-left">
+              <button id="goToday" class="nav-button" title="오늘로 이동">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/>
+                </svg>
+              </button>
+              <input type="text" id="searchInput" placeholder="할 일 검색" />
+            </div>
+
+            <div class="calendar-center">
+              <button id="prevMonth" class="nav-button">◀</button>
+              <h2 id="calendarTitle">
+                <span id="calendarYear" class="calendar-clickable"></span>
+                <span id="calendarMonth" class="calendar-clickable"></span>
+              </h2>
+              <button id="nextMonth" class="nav-button">▶</button>
+            </div>
+
+            <button id="closeCalendar" class="calendar-close">✖</button>
+          </div>
+
+          <!-- 선택기 -->
+          <div id="yearSelector" class="selector hidden"></div>
+          <div id="monthSelector" class="selector hidden"></div>
+
+          <div class="calendar-weekdays">
+            <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+          </div>
+          <div id="calendarGrid" class="calendar-grid"></div>
+        </div>
+      </div>
+
+    </div><!-- /.screen-area -->
+
+    <!-- 데스크톱의 캘린더 앱 아이콘 -->
+    <button id="calendarAppIcon" class="taskbar-icon" type="button" aria-label="캘린더 열기">
+      <span class="taskbar-icon-glyph">📅</span>
+    </button>
+
+  </div><!-- /.stage -->
+
+  <!-- 크롬 창 우하단에 항상 고정되는 저작권 표시 -->
   <div class="footer">
-    &copy; <span id="copyrightYear"></span> Planova. All rights reserved. Yeonsung University, Computer Software. <br />
+    &copy; <span id="copyrightYear"></span> Planova. All rights reserved. Yeonsung University, Computer Software.
   </div>
 
-  <!-- 스크립트 로딩 -->
+  <!-- todo.js는 step 2에서 캘린더 사이드 패널과 함께 다시 와이어링됩니다 -->
+  <!-- userbox.js: 사용자 아이콘 비활성화 동안 함께 비활성화 -->
   <script src="js/script.js"></script>
-  <script src="js/menu.js"></script>
-  <script src="js/todo.js"></script>
+  <script src="js/taskbar.js"></script>
   <script src="js/calendar.js"></script>
-  <script src="js/userbox.js"></script>
 </body>
 </html>
